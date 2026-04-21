@@ -513,62 +513,6 @@ Veritabanı (MSSQL)
 
 ---
 
-## 6. Yapay Zeka Kullanımı
-
-Bu projede yapay zeka (Claude - Anthropic) aşağıdaki aşamalarda kullanılmıştır:
-
-| Aşama | Kullanım Şekli |
-|---|---|
-| Veritabanı Tasarımı | Entity sınıfları, ilişkiler ve DbContext konfigürasyonu oluşturuldu |
-| Repository Katmanı | Generic BaseRepository ve özel repository implementasyonları yazıldı |
-| Manager Katmanı | İş mantığı, validasyon kuralları ve DTO mapping kodları üretildi |
-| Controller Katmanı | API endpoint'leri, CompanyId kontrolleri yazıldı |
-| TypeScript Tipleri | Interface ve enum tanımları oluşturuldu |
-| Service Katmanı | Axios instance, interceptor ve servis dosyaları yazıldı |
-| React Bileşenleri | Tab, Modal ve Dashboard bileşenleri oluşturuldu |
-| Hata Giderme | Karşılaşılan derleme ve çalışma zamanı hataları analiz edilip çözüldü |
-
-### Yapay Zekanın Rolü
-
-Yapay zeka bu projede bir rehber ve kod üretici olarak kullanılmıştır.
-Proje gereksinimleri, mimari kararlar ve kırmızı çizgi kuralları
-geliştirici tarafından belirlenmiş; yapay zeka bu kurallara uygun
-kod üretmiştir.
-
-Karşılaşılan hataların tespiti ve çözümü de yapay zeka ile birlikte
-yürütülmüştür. Ancak her çözüm geliştirici tarafından
-incelenmiş ve onaylanmıştır.
-
----
-
-## 7. Değerlendirme Kriterlerine Göre Öz Değerlendirme
-
-### Kurallara Uyum (%25)
-
-| Kural | Durum | Kanıt |
-|---|---|---|
-| HTTP GET/POST only | ✅ | `[HttpPost("update")]`, `[HttpPost("delete")]` |
-| Multi-Tenant CompanyId | ✅ | BaseEntity.CompanyId, her endpoint'te kontrol |
-| Sadece EF Core | ✅ | Raw SQL, Dapper yok; tüm sorgular LINQ |
-| EntityState.Modified | ✅ | BaseRepository.UpdateAsync |
-| Soft Delete | ✅ | SoftDeleteAsync → IsDeleted = true |
-| Server-Side Pagination | ✅ | Skip/Take DB'de, PagedResponseDto |
-
-### Kod Kalitesi ve Mimari Uyum (%20)
-
-- Controller → Manager → Repository → Entity katmanları tam ayrıştırılmıştır.
-- BaseEntity ve BaseRepository ile kod tekrarı minimuma indirilmiştir.
-- ApiResponseDto standart zarf yapısı tüm endpoint'lerde tutarlıdır.
-- Interface'ler dependency injection ile kullanılmıştır.
-- Her sınıfın tek sorumluluğu vardır (Single Responsibility Principle).
-
-### Özgün Tasarım (%20)
-
-- WarehouseZone → WarehouseRack → WarehouseStock hiyerarşisi özgün depo modeli.
-- WarehouseStock ayrı tablo kararı performans odaklı özgün tasarım.
-- StockAfterTransaction snapshot alanı denetim kolaylığı için özgün çözüm.
-- TransactionCode otomatik üretimi iş mantığında özgün implementasyon.
-- Renk kodlu kategori sistemi UI/UX odaklı özgün tasarım.
 
 ### Frontend UI/UX (%15)
 
@@ -596,18 +540,8 @@ Her ikisinde de:
   - Frontend sadece parametre gönderir
 ```
 
-### CALISMA_RAPORU.md (%10)
 
-Bu dosya değerlendirme kriterlerinde belirtilen tüm başlıkları kapsamaktadır:
-- ✅ Projenin kısa özeti
-- ✅ Kullanılan teknolojiler ve versiyonları
-- ✅ Karşılaşılan sorunlar ve çözüm yolları
-- ✅ Mimari kararlar ve nedenleri
-- ✅ Yapay zeka kullanım aşamaları
-
----
-
-## 8. Proje Dosya Yapısı
+## 6. Proje Dosya Yapısı
 
 ```
 SmartWarehouse/
